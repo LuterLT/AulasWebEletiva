@@ -6,17 +6,32 @@
                 <div class="alert alert-warning" role="alert" style="display: none;">
                     <strong>Erro ao Cadastrar</strong> Preencha todos os campos corretamente.
                 </div>
+                <div class="alert alert-success" role="alert" style="display: none;">
+                    <strong>Cadastro realizado com sucesso!</strong> Você já pode fazer login.
+                </div>
                 <div>
                     <label for="nome" class="form-label">Nome:</label>
-                    <input type="text" class="form-control" id="nome" placeholder="Enter nome" name="nome">
+                    <input type="text" class="form-control" id="nome" placeholder="Enter nome" name="nome" required>
+                    <div class="invalid-feedback"> Preencha este campo! </div>
+                    <div class="valid-feedback"> Campo preenchido corretamente! </div>
                 </div>
                 <div>
                     <label for="email" class="form-label">Email:</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required>
+                    <div class="invalid-feedback"> Preencha este campo! </div>
+                    <div class="valid-feedback"> Campo preenchido corretamente! </div>
+                </div>
+                <div>
+                   <label class="form-label">Telefone:</label>
+                    <input type="text" class="form-control" id="telefone" placeholder="Enter telefone" name="telefone" required pattern="\(\d{2}\)\s\d{4,5}-\d{4}">
+                    <div class="invalid-feedback"> Preencha este campo! </div>
+                    <div class="valid-feedback"> Campo preenchido corretamente! </div>
                 </div>
                 <div>
                     <label for="pwd" class="form-label">Password:</label>
-                    <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd">
+                    <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd" required>
+                    <div class="invalid-feedback"> Preencha este campo! </div>
+                    <div class="valid-feedback"> Campo preenchido corretamente! </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Cadastrar</button>
                 <div class="row justify-content-center">
