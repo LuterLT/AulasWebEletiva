@@ -26,12 +26,12 @@
                             <div class="col-6 col-md-3 mt-2 mt-md-0">
                                 <div class="input-group input-group-sm">
                                     <button class="btn btn-outline-secondary" type="button">-</button>
-                                    <input type="text" class="form-control text-center" value="1" />
+                                    <input type="text" class="form-control text-center" [value]="item.quantidade" readonly />
                                     <button class="btn btn-outline-secondary" type="button">+</button>
                                 </div>
                             </div>
                             <div class="col-6 col-md-2 text-end mt-2 mt-md-0">
-                                <span class="fw-bold d-block">R$ {{item.preco | number:'1.2-2'}}</span>
+                                <span class="fw-bold d-block">R$ {{item.valorTotal | number:'1.2-2'}}</span>
                                 <a href="#" class="text-danger small text-decoration-none">Remover</a>
                             </div>
                         </div>

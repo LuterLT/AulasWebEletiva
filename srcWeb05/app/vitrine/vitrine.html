@@ -9,7 +9,7 @@
             <div class="card-body d-flex flex-column justify-content-between">
                 <h5 class="card-title">{{obj.nome}}</h5>
                 <p class="card-text">{{obj.descricao}}</p>
-                <a href="#" class="btn btn-primary fw-bold">ADICIONAR AO CARRINHO</a>
+                <button class="btn btn-primary fw-bold" (click)="adicionarCesta(obj)">ADICIONAR AO CARRINHO</button>
             </div>
         </div>
     </div>
