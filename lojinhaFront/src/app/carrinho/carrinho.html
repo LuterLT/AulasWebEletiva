@@ -1,0 +1,73 @@
+<div class="container my-4">
+  <div class="row d-flex flex-column align-items-center">
+    <!-- Lista de Itens do Carrinho -->
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0">Carrinho de Compras ({{lista.length}} itens)</h5>
+            </div>
+            <div class="card-body p-0">
+                <ul class="list-group list-group-flush">
+                <!-- Item 1 -->
+                    <li class="list-group-item p-3 " *ngFor="let item of lista">
+                        <div class="row align-items-center">
+                            <div class="col-3 col-md-2">
+                            <img
+                                src="produtoSemImagem.webp"
+                                class="img-fluid rounded"
+                                alt="Produto"
+                            />
+                            </div>
+                            <div class="col-9 col-md-5">
+                                <h6 class="mb-1 text-truncate">{{item.nome}}</h6>
+                                <small class="text-muted d-block">Variação: {{item.variacao}}</small>
+                                <small class="text-muted d-block">Vendedor: {{item.vendedor}}</small>
+                            </div>
+                            <div class="col-6 col-md-3 mt-2 mt-md-0">
+                                <div class="input-group input-group-sm">
+                                    <button class="btn btn-outline-secondary" type="button" (click)="alterarQuantidade(item, -1)">-</button>
+                                    <input type="text" class="form-control text-center" [value]="item.quantidade" readonly />
+                                    <button class="btn btn-outline-secondary" type="button" (click)="alterarQuantidade(item, 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-2 text-end mt-2 mt-md-0">
+                                <span class="fw-bold d-block">R$ {{item.valorTotal | number:'1.2-2'}}</span>
+                                <button type="button" class="btn btn-link text-danger small text-decoration-none p-0" (click)="removerItem(item.codigo)">Remover</button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-4">
+    <!-- Resumo do Pedido -->
+    <div class="col-md-4 mx-auto">
+        <div class="card shadow-sm">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0">Resumo do Pedido</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted">Subtotal</span>
+                    <span>R$ {{subTotal | number:'1.2-2'}}</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted">Frete</span>
+                    <span class="text-success">Grátis</span>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between mb-3">
+                    <span class="fw-bold">Total</span>
+                    <span class="fw-bold fs-5 text-primary">R$ {{total | number:'1.2-2'}}</span>
+                </div>
+                <a class="btn btn-primary w-100 py-2" href="pedido">
+                    Continuar para o Pagamento
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+

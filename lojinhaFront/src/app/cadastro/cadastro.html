@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-6 mx-auto">
+            <form class="d-flex flex-column gap-3 bg-light border rounded-3 p-3" (ngSubmit)="cadastrar()">
+                <h3 class="text-center">Cadastro</h3>
+                <div class="alert alert-warning" role="alert" *ngIf="erro">
+                    <strong>Erro ao Cadastrar</strong> {{ erro }}
+                </div>
+                <div class="alert alert-success" role="alert" *ngIf="sucesso">
+                    <strong>Cadastro realizado com sucesso!</strong> Você já pode fazer login.
+                </div>
+                <div>
+                    <label for="nome" class="form-label">Nome:</label>
+                    <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="cliente.nome" required>
+                </div>
+                <div>
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" [(ngModel)]="cliente.email" required>
+                </div>
+                <div>
+                   <label class="form-label">Telefone:</label>
+                    <input type="text" class="form-control" id="telefone" name="telefone" [(ngModel)]="cliente.telefone" (input)="mascararTelefone($event)" maxlength="15" placeholder="(11) 99999-9999" required>
+                </div>
+                <div>
+                    <label for="pwd" class="form-label">Password:</label>
+                    <input type="password" class="form-control" id="pwd" name="senha" [(ngModel)]="cliente.senha" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+                <div class="row justify-content-center">
+                    <div class="col-auto">
+                        <a class="" href="login">Login</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
