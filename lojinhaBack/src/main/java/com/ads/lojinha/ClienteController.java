@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -40,6 +41,9 @@ public class ClienteController {
     @PostMapping
     public ResponseEntity<Cliente> cadastrarCliente(@RequestBody Cliente cliente) {
         cliente.setId(null);
+        if (cliente.getSenha() == null || cliente.getSenha().isBlank()) {
+            cliente.setSenha(cliente.getTelefone());
+        }
         Cliente salvo = clienteRepository.save(cliente);
         return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
     }
@@ -51,11 +55,41 @@ public class ClienteController {
                     existente.setNome(cliente.getNome());
                     existente.setEmail(cliente.getEmail());
                     existente.setTelefone(cliente.getTelefone());
+                    if (cliente.getSenha() != null && !cliente.getSenha().isBlank()) {
+                        existente.setSenha(cliente.getSenha());
+                    }
                     existente.setAtivo(cliente.getAtivo());
                     Cliente atualizado = clienteRepository.save(existente);
                     return ResponseEntity.ok(atualizado);
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+        if (request.getEmail() == null || request.getEmail().isBlank() ||
+                request.getSenha() == null || request.getSenha().isBlank()) {
+            return ResponseEntity.badRequest().body("Email e senha sao obrigatorios.");
+        }
+
+        return clienteRepository.loginNative(request.getEmail(), request.getSenha())
+                .<ResponseEntity<?>>map(cliente -> ResponseEntity.ok(Map.of(
+                        "mensagem", "Login realizado com sucesso.",
+                        "cliente", cliente)))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body("Email ou senha invalidos."));
+    }
+
+    @PostMapping("/reenvio-senha")
+    public ResponseEntity<String> reenvioSenha(@RequestBody ReenvioSenhaRequest request) {
+        if (request.getEmail() == null || request.getEmail().isBlank()) {
+            return ResponseEntity.badRequest().body("Email e obrigatorio.");
+        }
+
+        return clienteRepository.buscarPorEmailNative(request.getEmail())
+                .map(cliente -> ResponseEntity.ok("Reenvio realizado. Senha atual: " + cliente.getSenha()))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("Email nao encontrado."));
     }
 
     @DeleteMapping("/{id}")

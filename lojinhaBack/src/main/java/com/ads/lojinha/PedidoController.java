@@ -33,6 +33,16 @@ public class PedidoController {
         return pedidoRepository.findAll();
     }
 
+    @GetMapping("/cliente/{clienteId}")
+    public ResponseEntity<?> buscarPedidosPorCliente(@PathVariable Long clienteId) {
+        if (!clienteRepository.existsById(clienteId)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente informado nao existe.");
+        }
+
+        List<Pedido> pedidos = pedidoRepository.listarPorClienteNative(clienteId);
+        return ResponseEntity.ok(pedidos);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Pedido> buscarPedido(@PathVariable Long id) {
         return pedidoRepository.findById(id)
